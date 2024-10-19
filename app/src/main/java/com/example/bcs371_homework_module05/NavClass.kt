@@ -18,10 +18,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
@@ -56,22 +58,24 @@ fun SplashScreen(navController: NavController){
         navController.navigate("first_screen")
     }
 
-    Box(contentAlignment = Alignment.Center){
-        Column(modifier = Modifier.align(Alignment.Center)){
-            Image(painter = painterResource(id = R.drawable.dollar_sign), contentDescription ="")
-        }
+    Column(horizontalAlignment = Alignment.CenterHorizontally){
+        Image(painter = painterResource(id = R.drawable.dollar_sign), contentDescription ="")
+        Text("Who wants to be a millionaire")
     }
 }
 
 @Composable
 fun FirstScreen(navController: NavController){
-       Column(
-       ){
-           Text("Homework",
-               Modifier.background(Color.Black)
-                   .padding(20.dp)
-                   .align(Alignment.Start),
-               color = Color.White
-           )
-       }
+    Box(){
+        Column()
+        {
+            Text("Homework",
+                Modifier
+                    .background(Color.Black)
+                    .padding(20.dp)
+                    .align(Alignment.Start),
+                color = Color.White
+            )
+        }
+    }
 }
