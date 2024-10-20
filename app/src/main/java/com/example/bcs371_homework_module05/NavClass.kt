@@ -1,6 +1,7 @@
 package com.example.bcs371_homework_module05
 
 import android.view.animation.OvershootInterpolator
+import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -22,6 +23,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.Button
 import androidx.compose.material3.RadioButton
@@ -32,15 +34,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.ui.graphics.computeCubicVerticalBounds
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
 
 
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "last_screen"){
+    NavHost(navController = navController, startDestination = "splash_screen"){
         composable("splash_screen")
         {
             SplashScreen(navController)
@@ -100,6 +101,7 @@ fun SplashScreen(navController: NavController){
 // only commenting one Screen as they are all the same
 @Composable
 fun FirstScreen(navController: NavController) {
+    val context = LocalContext.current
     //these are the radio options compiled in a list and will show as radio buttons
     val radioOptions = listOf("50", "61", "31", "21")
     //make sure which one is selected and updates
@@ -157,11 +159,17 @@ fun FirstScreen(navController: NavController) {
         }
         Spacer(modifier = Modifier.padding(30.dp))
         //It takes to the next question and also updates the amount and correct answers
-        Button(onClick = {
+        Button(modifier = Modifier.paddingFromBaseline(240.dp,0.dp),onClick = {
             if (selectedOption == "50") {
                 totalAmount += 100
                 numberofCorrectAnswers +=1
                 navController.navigate("second_screen")
+                //shows that you selected the right answer and the amount you have earned
+                Toast.makeText(context, "Correct! You earned $totalAmount", Toast.LENGTH_SHORT).show()
+            }else{
+                navController.navigate("second_screen")
+                //Shows that you have answered the wrong answer and the amount you have
+                Toast.makeText(context, "Incorrect answer. You have earned $totalAmount", Toast.LENGTH_SHORT).show()
             }
         }) {
             Text("Confirm")
@@ -170,6 +178,7 @@ fun FirstScreen(navController: NavController) {
 }
     @Composable
 fun SecondScreen(navController: NavController) {
+    val context = LocalContext.current
     val radioOptions = listOf("Venus", "Earth", "Mars","Jupyter")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
     Column(verticalArrangement = Arrangement.Top,
@@ -215,10 +224,16 @@ fun SecondScreen(navController: NavController) {
             }
         }
         Spacer(modifier = Modifier.padding(30.dp))
-        Button(onClick = { if(selectedOption =="Venus"){
+        Button(modifier = Modifier.paddingFromBaseline(240.dp,0.dp),onClick = { if(selectedOption =="Venus"){
             totalAmount+= 100
             numberofCorrectAnswers +=1
             navController.navigate("third_screen")
+            //shows that you selected the right answer and the amount you have earned
+            Toast.makeText(context, "Correct! You earned $totalAmount", Toast.LENGTH_SHORT).show()
+        }else{
+            navController.navigate("third_screen")
+            //Shows that you have answered the wrong answer and the amount you have
+            Toast.makeText(context, "Incorrect answer. You have earned $totalAmount", Toast.LENGTH_SHORT).show()
         } }) {
             Text("Confirm")
         }
@@ -227,6 +242,7 @@ fun SecondScreen(navController: NavController) {
 
 @Composable
 fun ThirdScreen(navController: NavController) {
+    val context = LocalContext.current
     val radioOptions = listOf("206", "186", "204","190")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
     Column(verticalArrangement = Arrangement.Top,
@@ -272,12 +288,16 @@ fun ThirdScreen(navController: NavController) {
             }
         }
         Spacer(modifier = Modifier.padding(30.dp))
-        Button(onClick = { if(selectedOption =="206"){
+        Button(modifier = Modifier.paddingFromBaseline(240.dp,0.dp),onClick = { if(selectedOption =="206"){
             totalAmount+= 100
             numberofCorrectAnswers +=1
             navController.navigate("fourth_screen")
+            //shows that you selected the right answer and the amount you have earned
+            Toast.makeText(context, "Correct! You earned $totalAmount", Toast.LENGTH_SHORT).show()
         }else{
             navController.navigate("fourth_screen")
+            //Shows that you have answered the wrong answer and the amount you have
+            Toast.makeText(context, "Incorrect answer. You have earned $totalAmount", Toast.LENGTH_SHORT).show()
         }
         }) {
             Text("Confirm")
@@ -286,6 +306,7 @@ fun ThirdScreen(navController: NavController) {
 }
 @Composable
 fun FourthScreen(navController: NavController) {
+    val context = LocalContext.current
     val radioOptions = listOf("Cinnamon", "Cardamom", "Nutmeg","Black pepper")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
     Column(verticalArrangement = Arrangement.Top,
@@ -331,10 +352,16 @@ fun FourthScreen(navController: NavController) {
             }
         }
         Spacer(modifier = Modifier.padding(30.dp))
-        Button(onClick = { if(selectedOption =="Cardamom"){
+        Button(modifier = Modifier.paddingFromBaseline(240.dp,0.dp),onClick = { if(selectedOption =="Cardamom"){
             totalAmount+= 100
             numberofCorrectAnswers +=1
             navController.navigate("fifth_screen")
+            //shows that you selected the right answer and the amount you have earned
+            Toast.makeText(context, "Correct! You earned $totalAmount", Toast.LENGTH_SHORT).show()
+        }else{
+            navController.navigate("fifth_screen")
+            //Shows that you have answered the wrong answer and the amount you have
+            Toast.makeText(context, "Incorrect answer. You have earned $totalAmount", Toast.LENGTH_SHORT).show()
         } }) {
             Text("Confirm")
         }
@@ -342,6 +369,7 @@ fun FourthScreen(navController: NavController) {
 }
 @Composable
 fun FifthScreen(navController: NavController) {
+    val context = LocalContext.current
     val radioOptions = listOf("Mayella", "Scout", "Jem"," Calpurnia")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
     Column(verticalArrangement = Arrangement.Top,
@@ -387,10 +415,16 @@ fun FifthScreen(navController: NavController) {
             }
         }
         Spacer(modifier = Modifier.padding(30.dp))
-        Button(onClick = { if(selectedOption =="Jem"){
+        Button(modifier = Modifier.paddingFromBaseline(240.dp,0.dp),onClick = { if(selectedOption =="Jem"){
             totalAmount+= 100
             numberofCorrectAnswers +=1
             navController.navigate("sixth_screen")
+            //shows that you selected the right answer and the amount you have earned
+            Toast.makeText(context, "Correct! You earned $totalAmount", Toast.LENGTH_SHORT).show()
+        }else{
+            navController.navigate("sixth_screen")
+            //Shows that you have answered the wrong answer and the amount you have
+            Toast.makeText(context, "Incorrect answer. You have earned $totalAmount", Toast.LENGTH_SHORT).show()
         } }) {
             Text("Confirm")
         }
@@ -398,6 +432,7 @@ fun FifthScreen(navController: NavController) {
 }
 @Composable
 fun SixthScreen(navController: NavController) {
+    val context = LocalContext.current
     val radioOptions = listOf("Carrying oxygen", "Fighting infections", "Clotting blood","Regulating body temperature")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
     Column(verticalArrangement = Arrangement.Top,
@@ -443,10 +478,16 @@ fun SixthScreen(navController: NavController) {
             }
         }
         Spacer(modifier = Modifier.padding(30.dp))
-        Button(onClick = { if(selectedOption =="Carrying oxygen"){
+        Button(modifier = Modifier.paddingFromBaseline(240.dp,0.dp), onClick = { if(selectedOption =="Carrying oxygen"){
             totalAmount+= 100
             numberofCorrectAnswers +=1
             navController.navigate("seventh_screen")
+            //shows that you selected the right answer and the amount you have earned
+            Toast.makeText(context, "Correct! You earned $totalAmount", Toast.LENGTH_SHORT).show()
+        }else{
+            navController.navigate("seventh_screen")
+            //Shows that you have answered the wrong answer and the amount you have
+            Toast.makeText(context, "Incorrect answer. You have earned $totalAmount", Toast.LENGTH_SHORT).show()
         } }) {
             Text("Confirm")
         }
@@ -455,65 +496,96 @@ fun SixthScreen(navController: NavController) {
 @Composable
 fun SeventhScreen(navController: NavController) {
     val radioOptions = listOf("Tibia", "Femur", "Humerus","Radius")
+    val context = LocalContext.current
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
-    Column(verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Spacer(Modifier.padding(10.dp))
-        Text(
-            "Homework - who wants to be a Millionaire", Modifier
-                .background(Color.Black)
-                .fillMaxWidth()
-                .padding(20.dp),
-            color = Color.White
-        )
-        Spacer(Modifier.padding(30.dp))
-        Text("You have Earned: $$totalAmount",
-            fontSize = 30.sp,color = Color.Blue)
-        Spacer(Modifier.padding(20.dp))
-        Text("Which human bone is the longest and strongest?",
-            fontSize = 20.sp)
-        Spacer(modifier = Modifier.padding(10.dp))
-        radioOptions.forEach { text ->
-            Row(
-                Modifier
-                    .background(if (text == selectedOption) Color.Green else Color.Transparent)
-                    .selectable(
+        Column(
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Spacer(Modifier.padding(10.dp))
+            Text(
+                "Homework - who wants to be a Millionaire", Modifier
+                    .background(Color.Black)
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                color = Color.White
+            )
+            Spacer(Modifier.padding(30.dp))
+            Text(
+                "You have Earned: $$totalAmount",
+                fontSize = 30.sp, color = Color.Blue
+            )
+            Spacer(Modifier.padding(20.dp))
+            Text(
+                "Which human bone is the longest and strongest?",
+                fontSize = 20.sp
+            )
+            Spacer(modifier = Modifier.padding(10.dp))
+            radioOptions.forEach { text ->
+                Row(
+                    Modifier
+                        .background(if (text == selectedOption) Color.Green else Color.Transparent)
+                        .selectable(
+                            selected = (text == selectedOption),
+                            onClick = {
+                                onOptionSelected(text)
+                            }
+                        )
+                        .padding(horizontal = 16.dp)
+                ) {
+                    RadioButton(
                         selected = (text == selectedOption),
-                        onClick = {
-                            onOptionSelected(text)
-                        }
+                        onClick = { onOptionSelected(text) }
                     )
-                    .padding(horizontal = 16.dp)
-            ) {
-                RadioButton(
-                    selected = (text == selectedOption),
-                    onClick = { onOptionSelected(text) }
-                )
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.bodyLarge.merge(),
-                    modifier = Modifier.padding(start = 16.dp)
-                )
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.bodyLarge.merge(),
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.padding(30.dp))
+            Button(modifier = Modifier.paddingFromBaseline(240.dp,0.dp), onClick = {
+                if (selectedOption == "Femur") {
+                    totalAmount += 100
+                    numberofCorrectAnswers += 1
+                    navController.navigate("last_screen")
+                    //shows that you selected the right answer and the amount you have earned
+                    Toast.makeText(context, "Correct! You earned $totalAmount", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    navController.navigate("last_screen")
+                    //Shows that you have answered the wrong answer and the amount you have
+                    Toast.makeText(context, "Incorrect answer. You have earned $totalAmount", Toast.LENGTH_SHORT).show()
+                }
+            }) {
+                Text("Confirm")
             }
         }
-        Spacer(modifier = Modifier.padding(30.dp))
-        Button(onClick = { if(selectedOption =="Femur"){
-            totalAmount+= 100
-            numberofCorrectAnswers +=1
-            navController.navigate("last_screen")
-        } }) {
-            Text("Confirm")
-        }
-    }
 }
 
 @Composable
 fun LastScreen(navController: NavController){
-    Column(){
-        Text("Game over")
-        Text("")
-
+    Column(horizontalAlignment = Alignment.CenterHorizontally){
+        //all the texts
+        Text("Game over",
+            modifier = Modifier.padding(20.dp),fontSize = 40.sp)
+        Text("Here are your Statistics",
+            modifier = Modifier.padding(20.dp),fontSize = 30.sp)
+        Text("Amount Correct", fontSize = 20.sp)
+        //shows the number of questions you got right
+        Text("$numberofCorrectAnswers/7",
+            modifier = Modifier.padding(20.dp), fontSize = 20.sp)
+        Text("Total Earnings", fontSize = 20.sp)
+        //shows the total earnings
+        Text("$totalAmount", fontSize = 30.sp)
+        //resets teh number of correct and total amount to zero and takes you to the first question
+        Button(onClick = { navController.navigate("first_screen")
+        numberofCorrectAnswers = 0
+            totalAmount = 0
+        }) {
+            Text("Play Again")
+        }
     }
 }
